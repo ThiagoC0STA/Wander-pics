@@ -1,12 +1,20 @@
 .modal {
-  z-index: 100;
-  position: fixed;
-  top: 22vh;
-  left: 10%;
   width: 80%;
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 8px;
+}
+
+.modal-centering-container {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal__header {
@@ -14,6 +22,7 @@
   padding: 1rem 0.5rem;
   background: #1b1531;
   color: white;
+  border-radius: 6px 6px 0 0;
 }
 
 .modal__header h2 {
