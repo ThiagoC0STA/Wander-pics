@@ -24,10 +24,12 @@
 .main-navigation__title a {
   text-decoration: none;
   color: white;
+  font-family: "Expletus Sans", cursive;
 }
 
 .main-navigation__header-nav {
   display: none;
+  font-family: "Expletus Sans", cursive;
 }
 
 .main-navigation__drawer-nav {

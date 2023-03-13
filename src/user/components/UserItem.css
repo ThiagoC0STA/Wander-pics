@@ -11,17 +11,20 @@
   height: 100%;
   text-decoration: none;
   padding: 1rem;
-  color: white;
-  background: #292929;
+  color: #ddd5e1;
+  background: #372d56;
+  transition: all ease 0.4s;
+  font-size: 0.8rem;
 }
 
 .user-item a:hover,
 .user-item a:active {
-  background: #ffd900;
+  background: #46386f;
 }
 
 .card.user-item__content {
   padding: 0 !important;
+  background: transparent !important;
 }
 
 .user-item__image {
@@ -31,19 +34,14 @@
 }
 
 .user-item__info h2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin: 0 0 0.5rem 0;
   font-weight: normal;
-  color: #ffd900;
-}
-
-.user-item:hover h2,
-.user-item:active h2,
-.user-item:hover h3,
-.user-item:active h3 {
-  color: #292929;
+  color: #ddd5e1;
+  transition: all ease 0.4s;
 }
 
 .user-item__info h3 {
   margin: 0;
+  transition: all ease 0.4s;
 }
