@@ -7,6 +7,14 @@ import PlaceList from "../components/PlaceList";
 const Places = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [dataPlaces, setDataPlaces] = useState();
+  const [currentUser, setCurrentUser] = useState();
+
+  useEffect(() => {
+    if (localStorage.getItem("userData")) {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      setCurrentUser(userData.userId);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -15,7 +23,7 @@ const Places = () => {
           `${process.env.REACT_APP_BACKEND_URL}/places`
         );
 
-        setDataPlaces(responseData.places);
+        setDataPlaces(responseData.places.reverse());
       } catch (err) {}
     };
     fetchPlaces();
@@ -36,7 +44,11 @@ const Places = () => {
         </div>
       )}
       {!isLoading && dataPlaces && (
-        <PlaceList items={dataPlaces} onDeletePlace={placeDeletedHandler} />
+        <PlaceList
+          items={dataPlaces}
+          currentUser={currentUser}
+          onDeletePlace={placeDeletedHandler}
+        />
       )}
     </React.Fragment>
   );

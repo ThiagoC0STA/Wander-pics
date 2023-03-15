@@ -5,13 +5,6 @@ import Button from "../../shared/components/FormElements/Button";
 import "./PlaceList.css";
 
 const PlaceList = (props) => {
-  let currentUser;
-
-  if (localStorage.getItem("userData")) {
-    const userData = JSON.parse(localStorage.getItem("userData"));
-    currentUser = userData.userId;
-  }
-
   if (props.items.length === 0) {
     return (
       <div className="place-list center">
@@ -25,7 +18,7 @@ const PlaceList = (props) => {
 
   return (
     <ul className="place-list">
-      {props.items.reverse().map((place) => (
+      {props.items.map((place) => (
         <PlaceItem
           key={place.id}
           id={place.id}
@@ -40,7 +33,7 @@ const PlaceList = (props) => {
           creatorImage={place.creatorImage ? place.creatorImage : ""}
           likes={place.likes}
           comments={place.comments}
-          currentUser={currentUser}
+          currentUser={props.currentUser}
         />
       ))}
     </ul>

@@ -37,7 +37,7 @@ const PlaceItem = (props) => {
     if (props.likes.length > 0) {
       // eslint-disable-next-line array-callback-return
       props.likes.map((like) => {
-        if (like === props.currentUser) {
+        if (props.likes.includes(userIsLogged)) {
           setLike(true);
           setLikesCount(props.likes.length);
         } else {
@@ -47,9 +47,9 @@ const PlaceItem = (props) => {
       });
     } else {
       setLike(false);
-      setLikesCount(props.likes.length);
+      setLikesCount(0);
     }
-  }, [props.currentUser, props.likes]);
+  }, [props.likes, userIsLogged]);
 
   const handleLike = async (event) => {
     event.preventDefault();

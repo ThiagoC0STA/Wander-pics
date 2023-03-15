@@ -9,7 +9,6 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 const UserPlaces = () => {
   const [loadedPlaces, setLoadedPlaces] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
   const userId = useParams().userId;
 
   useEffect(() => {
@@ -39,7 +38,11 @@ const UserPlaces = () => {
         </div>
       )}
       {!isLoading && loadedPlaces && (
-        <PlaceList items={loadedPlaces} onDeletePlace={placeDeletedHandler} />
+        <PlaceList
+          items={loadedPlaces}
+          currentUser={userId}
+          onDeletePlace={placeDeletedHandler}
+        />
       )}
     </React.Fragment>
   );
