@@ -13,18 +13,25 @@ import {
   AiOutlineComment,
   AiFillHeart,
 } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const PlaceItem = (props) => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const navigate = useNavigate();
 
   const [likesCount, setLikesCount] = useState(0);
   const [like, setLike] = useState();
+  const [userIsLogged, setUserIsLogged] = useState();
 
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
+
+  useEffect(() => {
+    setUserIsLogged(props.currentUser);
+  }, [props.currentUser]);
 
   useEffect(() => {
     if (props.likes.length > 0) {
@@ -47,21 +54,24 @@ const PlaceItem = (props) => {
   const handleLike = async (event) => {
     event.preventDefault();
 
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/places/likes/${props.id}`,
-        {
-          method: "PATCH",
-          headers: { Authorization: `Bearer ${auth.token}` },
-          body: {},
-        }
-      );
-      const updatedData = await response.json();
-      console.log(updatedData);
-      setLike(updatedData.isLiked);
-      setLikesCount(updatedData.likesNumber);
-    } catch (err) {
-      console.log(err);
+    if (userIsLogged) {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/places/likes/${props.id}`,
+          {
+            method: "PATCH",
+            headers: { Authorization: `Bearer ${auth.token}` },
+            body: {},
+          }
+        );
+        const updatedData = await response.json();
+        setLike(updatedData.isLiked);
+        setLikesCount(updatedData.likesNumber);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      navigate("/auth");
     }
   };
 
