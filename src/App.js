@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Places from "./places/pages/Places";
 
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
@@ -20,7 +21,8 @@ const App = () => {
   if (token) {
     routes = (
       <Routes>
-        <Route path="/" element={<Users />} />
+        <Route path="/" element={<Places />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/:userId/places" element={<UserPlaces />} />
         <Route path="/places/new" element={<NewPlace />} />
         <Route path="/places/:placeId" element={<UpdatePlace />} />
@@ -30,7 +32,8 @@ const App = () => {
   } else {
     routes = (
       <Routes>
-        <Route path="/" element={<Users />} />
+        <Route path="/" element={<Places />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/:userId/places" element={<UserPlaces />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="*" element={<Navigate to="/auth" />} />

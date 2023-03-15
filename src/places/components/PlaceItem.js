@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
 import Modal from "../../shared/components/UIElements/Modal";
@@ -7,16 +7,63 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./PlaceItem.css";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import {
+  AiOutlineShareAlt,
+  AiOutlineHeart,
+  AiOutlineComment,
+  AiFillHeart,
+} from "react-icons/ai";
 
 const PlaceItem = (props) => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
+  const [likesCount, setLikesCount] = useState(0);
+  const [like, setLike] = useState();
+
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
+
+  useEffect(() => {
+    if (props.likes.length > 0) {
+      // eslint-disable-next-line array-callback-return
+      props.likes.map((like) => {
+        if (like === props.currentUser) {
+          setLike(true);
+          setLikesCount(props.likes.length);
+        } else {
+          setLike(false);
+          setLikesCount(props.likes.length);
+        }
+      });
+    } else {
+      setLike(false);
+      setLikesCount(props.likes.length);
+    }
+  }, [props.currentUser, props.likes]);
+
+  const handleLike = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/places/likes/${props.id}`,
+        {
+          method: "PATCH",
+          headers: { Authorization: `Bearer ${auth.token}` },
+          body: {},
+        }
+      );
+      const updatedData = await response.json();
+      console.log(updatedData);
+      setLike(updatedData.isLiked);
+      setLikesCount(updatedData.likesNumber);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
@@ -37,7 +84,7 @@ const PlaceItem = (props) => {
           Authorization: `Bearer ${auth.token}`,
         }
       );
-      props.onDelete(props.id);
+      props.onDeletePlace(props.id);
     } catch (e) {}
   };
 
@@ -99,8 +146,28 @@ const PlaceItem = (props) => {
       <li className="place-item">
         <Card className="place-item__content">
           {isLoading && <LoadingSpinner asOverlay />}
+          <div className="creator_post">
+            <div>
+              <img src={props.creatorImage} alt="user" />
+              <p>{props.creatorName}</p>
+            </div>
+            <AiOutlineShareAlt />
+          </div>
           <div className="place-item__image">
             <img src={props.image} alt={props.title} />
+          </div>
+          <div className="like__comment">
+            <div>
+              <figure>
+                <figcaption>{likesCount}</figcaption>
+                {like ? (
+                  <AiFillHeart onClick={handleLike} />
+                ) : (
+                  <AiOutlineHeart onClick={handleLike} />
+                )}
+              </figure>
+              <AiOutlineComment />
+            </div>
           </div>
           <div className="place-item__info">
             <h2>{props.title}</h2>
