@@ -6,7 +6,7 @@
 }
 
 .modal-centering-container {
-  z-index: 100;
+  z-index: 999;
   position: fixed;
   top: 0;
   right: 0;
@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #000000c0;
 }
 
 .modal__header {

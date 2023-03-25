@@ -16,7 +16,7 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./Auth.css";
 
-//Auth 
+//Auth
 
 const Auth = () => {
   const auth = useContext(AuthContext);

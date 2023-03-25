@@ -14,6 +14,9 @@ import {
   AiFillHeart,
 } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { IoClose } from "react-icons/io5";
+import { IoMdCloseCircle } from "react-icons/io";
+import { RiSendPlaneFill } from "react-icons/ri";
 
 const PlaceItem = (props) => {
   const auth = useContext(AuthContext);
@@ -24,7 +27,11 @@ const PlaceItem = (props) => {
   const [like, setLike] = useState();
   const [userIsLogged, setUserIsLogged] = useState();
 
+  const [inputValue, setInputValue] = useState("");
+  const [currentComment, setCurrentComment] = useState(props.comments);
+
   const [showMap, setShowMap] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
@@ -70,6 +77,45 @@ const PlaceItem = (props) => {
       } catch (err) {
         console.log(err);
       }
+    } else {
+      navigate("/auth");
+    }
+  };
+
+  const handleComment = async (event) => {
+    event.preventDefault();
+
+    if (userIsLogged) {
+      if (inputValue) {
+        const response = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/places/comments/${props.id}`,
+          "POST",
+          JSON.stringify({ comment: inputValue }),
+          {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token}`,
+          }
+        );
+        setCurrentComment(response.place.comments);
+        setInputValue("");
+      }
+    } else {
+      navigate("/auth");
+    }
+  };
+
+  const handleDeleteComment = async (id) => {
+    if (userIsLogged) {
+      const response = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/places/comments/${props.id}`,
+        "DELETE",
+        JSON.stringify({ comment: id }),
+        {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.token}`,
+        }
+      );
+      setCurrentComment(response.place.comments);
     } else {
       navigate("/auth");
     }
@@ -176,9 +222,70 @@ const PlaceItem = (props) => {
                   <AiOutlineHeart onClick={handleLike} />
                 )}
               </figure>
-              <AiOutlineComment />
+              <AiOutlineComment onClick={() => setShowComments(true)} />
             </div>
           </div>
+          {showComments && (
+            <div className="comment_black_modal">
+              <div className="comment_white_modal">
+                <div className="close_comment">
+                  <div>
+                    <p>{props.title}</p>
+                    <IoClose onClick={() => setShowComments(false)} />
+                  </div>
+                </div>
+
+                <form onSubmit={handleComment}>
+                  {currentComment.length < 1 ? (
+                    <div className="no_comments">
+                      {userIsLogged
+                        ? "No comments found, be the first to comment 😀"
+                        : "No comments found, login and be the first to comment 😁"}
+                    </div>
+                  ) : (
+                    <div className="comments">
+                      {currentComment.map(
+                        ({ user, comment, userId, _id }, index) => (
+                          <article key={index}>
+                            <div>
+                              <h3>
+                                {user}
+                                {userIsLogged === userId ? (
+                                  <strong> ( you ) </strong>
+                                ) : (
+                                  ""
+                                )}
+                              </h3>
+                              <p>{comment}</p>
+                            </div>
+                            {userIsLogged === userId && (
+                              <IoMdCloseCircle
+                                onClick={() => handleDeleteComment(_id)}
+                              >
+                                X
+                              </IoMdCloseCircle>
+                            )}
+                          </article>
+                        )
+                      )}
+                    </div>
+                  )}
+                  {userIsLogged && (
+                    <div className="input_comment">
+                      <input
+                        type="text"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                      />
+                      <button type="submit">
+                        <RiSendPlaneFill>send</RiSendPlaneFill>
+                      </button>
+                    </div>
+                  )}
+                </form>
+              </div>
+            </div>
+          )}
           <div className="place-item__info">
             <h2>{props.title}</h2>
             <h3>{props.address}</h3>
