@@ -269,6 +269,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
+  height: 50vh;
+  text-align: center;
 }
 
 .place-item__image {
