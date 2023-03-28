@@ -122,8 +122,10 @@ const PlaceItem = (props) => {
   };
 
   const handleShare = () => {
+    const baseUrl = window.location.origin;
+
     navigator.clipboard
-      .writeText(`${process.env.REACT_APP_FRONTEND_URL}/shared/${props.id}`)
+      .writeText(`${baseUrl}/shared/${props.id}`)
       .then(() => {
         alert("Copied to clipboard!");
       })
