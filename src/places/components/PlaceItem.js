@@ -134,14 +134,6 @@ const PlaceItem = (props) => {
       });
   };
 
-  const showDeleteWarningHandler = () => {
-    setShowConfirmModal(true);
-  };
-
-  const cancelDeleteHandler = () => {
-    setShowConfirmModal(false);
-  };
-
   const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
     try {
@@ -193,12 +185,12 @@ const PlaceItem = (props) => {
       </Modal>
       <Modal
         show={showConfirmModal}
-        onCancel={cancelDeleteHandler}
+        onCancel={() => setShowConfirmModal(false)}
         header="Are you sure?"
         footerClass="place-item__modal-actions"
         footer={
           <React.Fragment>
-            <Button inverse onClick={cancelDeleteHandler}>
+            <Button inverse onClick={() => setShowConfirmModal(false)}>
               CANCEL
             </Button>
             <Button danger onClick={confirmDeleteHandler}>
@@ -313,7 +305,7 @@ const PlaceItem = (props) => {
             )}
 
             {auth.userId === props.creatorId && (
-              <Button danger onClick={showDeleteWarningHandler}>
+              <Button danger onClick={() => setShowConfirmModal(true)}>
                 DELETE
               </Button>
             )}
