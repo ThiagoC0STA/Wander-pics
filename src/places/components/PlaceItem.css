@@ -16,10 +16,12 @@
   align-items: center;
   justify-content: flex-start;
   gap: 0.6rem;
+  cursor: pointer;
 }
 
 .creator_post svg {
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 .creator_post {
@@ -159,8 +161,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  background-color: rgb(242, 242, 242);
-  box-shadow: 1px 1px 3px rgba(171, 171, 171, 0.699);
+  background-color: rgb(247 247 247);
+  box-shadow: 0 1px 3px rgba(171, 171, 171, 0.699);
   margin: 0.4rem 0.7rem 0.2rem 1rem;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -200,7 +202,7 @@
   padding: 0.4rem;
   border-radius: 5px;
   border: none;
-  background-color: rgb(242, 242, 242);
+  background-color: rgb(239 232 247);
 }
 
 .input_comment input:hover,

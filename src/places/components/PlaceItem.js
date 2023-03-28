@@ -121,6 +121,17 @@ const PlaceItem = (props) => {
     }
   };
 
+  const handleShare = () => {
+    navigator.clipboard
+      .writeText(`${process.env.REACT_APP_FRONTEND_URL}/shared/${props.id}`)
+      .then(() => {
+        alert("Copied to clipboard!");
+      })
+      .catch((err) => {
+        alert("Failed to copy the link, try again");
+      });
+  };
+
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
   };
@@ -203,11 +214,11 @@ const PlaceItem = (props) => {
         <Card className="place-item__content">
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="creator_post">
-            <div>
+            <div onClick={() => navigate(`${props.creatorId}/places`)}>
               <img src={props.creatorImage} alt="user" />
               <p>{props.creatorName}</p>
             </div>
-            <AiOutlineShareAlt />
+            <AiOutlineShareAlt onClick={handleShare} />
           </div>
           <div className="place-item__image">
             <img src={props.image} alt={props.title} />

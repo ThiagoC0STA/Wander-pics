@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import OnePlace from "./places/pages/OnePlace";
 import Places from "./places/pages/Places";
 
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/:userId/places" element={<UserPlaces />} />
         <Route path="/places/new" element={<NewPlace />} />
         <Route path="/places/:placeId" element={<UpdatePlace />} />
+        <Route path="/shared/:placeId" element={<OnePlace />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );
@@ -36,6 +38,7 @@ const App = () => {
         <Route path="/users" element={<Users />} />
         <Route path="/:userId/places" element={<UserPlaces />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/shared/:placeId" element={<OnePlace />} />
         <Route path="*" element={<Navigate to="/auth" />} />
       </Routes>
     );
