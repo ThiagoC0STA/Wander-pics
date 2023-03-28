@@ -297,12 +297,13 @@
 .place-item__info h3 {
   font-size: 1rem;
   font-weight: 500;
-  color: #bcb2c1;
+  color: #433948;
   margin: 0;
 }
 
 .place-item__info p {
-  margin-top: 2.5rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
 }
 
 .place-item__actions {
