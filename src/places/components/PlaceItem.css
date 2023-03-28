@@ -296,9 +296,9 @@
 }
 
 .place-item__info h3 {
-  font-size: 1.1em;
-  font-weight: 500;
-  color: #433948;
+  font-size: 1em;
+  font-weight: bold;
+  color: #000;
   margin: 0;
 }
 
