@@ -288,25 +288,21 @@
   object-fit: cover;
 }
 
-.place-item__info h2,
-.place-item__info h3,
-.place-item__info p {
-  margin: 0 0 0.5rem 0;
-}
-
 .place-item__info h2 {
   text-transform: capitalize;
-  color: #9617d5;
+  color: #2a003f;
+  margin: 0.6rem 0 0.3rem 0;
 }
 
 .place-item__info h3 {
   font-size: 1rem;
   font-weight: 500;
-  color: #6300955c;
+  color: #bcb2c1;
+  margin: 0;
 }
 
 .place-item__info p {
-  margin-top: 1rem;
+  margin-top: 2.5rem;
 }
 
 .place-item__actions {
