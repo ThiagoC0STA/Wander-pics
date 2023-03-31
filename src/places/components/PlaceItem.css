@@ -172,6 +172,7 @@
 .comments article div {
   display: flex;
   flex-direction: column;
+  align-items: baseline;
 }
 
 .comments::-webkit-scrollbar {
