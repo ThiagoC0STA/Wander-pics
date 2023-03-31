@@ -1,0 +1,17 @@
+footer {
+  background-color: #201a31;
+  height: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3em;
+  color: #f3f3f3;
+}
+
+p {
+  text-align: center;
+}
+
+a {
+  color: #fff;
+}

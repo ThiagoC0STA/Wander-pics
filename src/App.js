@@ -7,6 +7,7 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
+import Footer from "./shared/components/Footer/Footer";
 
 const Users = React.lazy(() => import("./user/pages/Users"));
 const NewPlace = React.lazy(() => import("./places/pages/NewPlace"));
@@ -67,6 +68,7 @@ const App = () => {
             {routes}
           </Suspense>
         </main>
+        <Footer />
       </BrowserRouter>
     </AuthContext.Provider>
   );

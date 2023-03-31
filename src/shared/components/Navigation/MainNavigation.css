@@ -23,8 +23,20 @@
 
 .main-navigation__title a {
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-navigation__title img {
+  width: 3.5rem;
+}
+
+.main-navigation__title h1 {
+  text-decoration: none;
   color: white;
   font-family: "Expletus Sans", cursive;
+  margin-left: 10px;
 }
 
 .main-navigation__header-nav {
@@ -36,7 +48,7 @@
   height: 100%;
 }
 
-@media (min-width: 860px) {
+@media (min-width: 980px) {
   .main-navigation__menu-btn {
     display: none;
   }

@@ -25,8 +25,8 @@
 .nav-links a:hover,
 .nav-links a:active,
 .nav-links a.active {
-  background: #9d5be3;
-  color: #000000;
+  background: #7032b5;
+  color: #000;
 }
 
 .nav-links button {
@@ -48,7 +48,7 @@
   color: white;
 }
 
-@media (min-width: 860px) {
+@media (min-width: 980px) {
   .nav-links {
     flex-direction: row;
   }
@@ -73,7 +73,7 @@
 
   .nav-links button:hover,
   .nav-links button:active {
-    background: #9D5BE3;
+    background: #ffffff;
     color: #000000;
   }
 }

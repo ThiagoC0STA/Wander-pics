@@ -3,6 +3,7 @@
   height: 6rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: fixed;
   top: 0;
   left: 0;
@@ -14,10 +15,4 @@
 
 main {
   margin-top: 8rem;
-}
-
-@media (min-width: 860px) {
-  .main-header {
-    justify-content: space-between;
-  }
 }
